@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES6",          // The JavaScript version to compile to
+    "module": "CommonJS",     // Required for Node.js compatibility
+    "outDir": "./dist",       // Where compiled JavaScript files will go
+    "rootDir": "./src",       // Where TypeScript source files are
+    "strict": true,           // Enables strict type checking
+    "esModuleInterop": true   // Allows better compatibility with ES6 modules
+  }
+}
