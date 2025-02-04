@@ -53,6 +53,11 @@ const getNumberProperties = (num: number): string[] => {
   return properties;
 };
 
+// ✅ Default Route for "/"
+app.get("/", (req: Request, res: Response) => {
+  res.send("Welcome to the Number Classification API! Add this path to the url   /api/classify-number?number=4   to test.");
+});
+
 // API Route
 app.get("/api/classify-number", async (req: Request, res: Response): Promise<void> => {
     const { number } = req.query;
