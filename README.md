@@ -9,7 +9,7 @@ The **Number Classification API** is a simple RESTful API that takes a number as
 - Fun fact about the number (using [Numbers API](http://numbersapi.com))
 
 ## 🚀 Live Demo
-[API URL](https://hng-12-stage-1-backend-number.onrender.com/api/classify-number?number=371)
+[API URL](https://hng-12-stage-1-backend-number.onrender.com/api/classify-number)
 
 ## 🛠 Technologies Used
 Node.js - JavaScript runtime
@@ -19,7 +19,8 @@ Axios - HTTP client for API calls
 CORS - Middleware for cross-origin requests
 
 ## 📌 Endpoints
-### `GET /api/classify-number?number=371`
+### `GET /api/classify-number`
+
 #### ✅ Success Response (200)
 ```json
 {

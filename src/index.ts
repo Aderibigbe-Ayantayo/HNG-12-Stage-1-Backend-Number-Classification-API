@@ -55,36 +55,36 @@ const getNumberProperties = (num: number): string[] => {
 
 // ✅ Default Route for "/"
 app.get("/", (req: Request, res: Response) => {
-  res.send("Welcome to the Number Classification API! Add this path to the url   /api/classify-number?number=4   to test.");
+  res.send("Welcome to the Number Classification API! Use /api/classify-number to classify the number 0 by default or provide a number as a query parameter.");
 });
 
-// API Route
+// API Route using GET method for browser support, defaulting to 0 if no number is provided
 app.get("/api/classify-number", async (req: Request, res: Response): Promise<void> => {
-    const { number } = req.query;
+  const numParam = req.query.number;
+  const num = numParam !== undefined ? Number(numParam) : 0; // Use provided number or default to 0
   
-    if (!number || isNaN(Number(number))) {
-      res.status(400).json({ number, error: true });
-      return;
-    }
-  
-    const num = Number(number);
-    try {
-      const funFactRes = await axios.get(`http://numbersapi.com/${num}/math?json`);
-      const funFact = funFactRes.data.text;
-  
-      res.json({
-        number: num,
-        is_prime: isPrime(num),
-        is_perfect: isPerfect(num),
-        properties: getNumberProperties(num),
-        digit_sum: getDigitSum(num),
-        fun_fact: funFact,
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch fun fact" });
-    }
-  });
-  
+  if (isNaN(num)) {
+    res.status(400).json({ error: "Invalid number. Please provide a valid numerical value." });
+    return;
+  }
+
+  try {
+    const funFactRes = await axios.get(`http://numbersapi.com/${num}/math?json`);
+    const funFact = funFactRes.data.text;
+
+    res.json({
+      number: num,
+      is_prime: isPrime(num),
+      is_perfect: isPerfect(num),
+      properties: getNumberProperties(num),
+      digit_sum: getDigitSum(num),
+      fun_fact: funFact,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch fun fact" });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
